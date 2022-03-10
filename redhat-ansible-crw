@@ -1,0 +1,26 @@
+apiVersion: v2
+publisher: Red Hat
+name: redhat-ansible
+version: 0.6.1
+type: "VS Code extension"
+displayName: Ansible VS Code Extension
+title: Ansible extension
+description: "This extension adds language support for Ansible to VS Code."
+icon: "https://www.eclipse.org/che/images/logo-eclipseche.svg"
+repository: "https://github.com/ansible/vscode-ansible"
+category: Language
+spec:
+  containers:
+  - image: quay.io/pgustafs/sidecar-python38-ansible-rhel8
+    name: redhat-ansible
+    volumes:
+      - name: venv
+        mountPath: /home/user/.venv
+      - name: ansible
+        mountPath: /home/user/.ansible
+    memoryLimit: '512M'
+    env:
+      - name: VSCODE_API_VERSION
+        value: '1.52.0'
+      - name: ANSIBLE_CONFIG
+        value: '/home/user/.ansible/ansible.cfg'
